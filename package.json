@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "ejemplo servidor express",
   "main": "express.js",
+  "dependencies": {
+    "express": "*"
+    "socket.io": "*"
+  },
   "scripts": {
     "test": "node express.js"
   },
