@@ -4,7 +4,7 @@
   "description": "ejemplo servidor express",
   "main": "express.js",
   "dependencies": {
-    "express": "*"
+    "express": "*",
     "socket.io": "*"
   },
   "scripts": {
