@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+    <head>
+        <title>SHT15</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <script src='//code.jquery.com/jquery-1.7.2.min.js'></script>
+        <script src='//192.168.64.134:1234/socket.io/socket.io.js'></script>
+        <script>
+            var socket = io.connect('//192.168.64.134:1234');
+            
+            $(document).ready(function(){
+                $("#button").click(function() {
+                    //socket.emit('arduino' ,"Hello World!");
+                    socket.emit('arduino' ,{comando: 'LedOn'})
+                })
+
+                $("#checkboxAGS").click(function() {
+                    if (document.getElementById("checkboxAGS").checked) {
+                        socket.emit('checkboxAGS' , {status: 'Checked'})
+
+                    }
+                    else
+                        socket.emit('checkboxAGS' , {status: 'Unchecked'})
+                })
+
+            })
+
+            socket.on('temperature', function(data)
+            {
+                $('#temp_message').text(data.message);
+            });
+
+            socket.on('humidity', function(data)
+            {
+                $('#hum_message').text(data.message);
+            });
+
+            socket.on('checkboxAGS', function(data)
+            {
+                if (data.status == "Checked")
+                    document.getElementById("checkboxAGS").checked = true;
+                else if (data.status == "Unchecked")
+                    document.getElementById("checkboxAGS").checked = false;
+            });
+
+
+
+
+
+
+        </script>
+    </head>
+    <body>
+        <p1> Temperature: </p1>
+        <p1 id='temp_message'></p1>
+
+        <br />
+        
+        <p1> Humidity: </p1>
+        <p1 id='hum_message'></p1>
+        <br />
+
+        <!-- Rounded switch -->
+        <label class="switch">
+            <input type="checkbox" id='checkboxAGS'>
+            <div class="slider round"></div>
+        </label>
+
+    </body>
+</html>
